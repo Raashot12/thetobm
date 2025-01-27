@@ -1,3 +1,3 @@
 # landing-page
 
-the private landing page repo for homiverse capital limited
+the private landing page repo for tombgroup limited
