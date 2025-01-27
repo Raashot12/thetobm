@@ -1,3 +1,4 @@
+import { Container } from '@mantine/core';
 import HeroSection from '@/components/Home/HeroSection';
 import NewsLetter from '@/components/Home/NewsLetter';
 import StayUpdated from '@/components/Home/StayUpdated';
@@ -8,7 +9,9 @@ export default function HomePage() {
     <Layout pageTitle="Home">
       <HeroSection />
       <StayUpdated />
-      <NewsLetter />
+      <Container size="xl">
+        <NewsLetter />
+      </Container>
     </Layout>
   );
 }

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 import Swal from 'sweetalert2';
 import { z } from 'zod';
-import { Box, Button, Container, Flex, Text, TextInput } from '@mantine/core';
+import { Box, Button, Flex, Text, TextInput } from '@mantine/core';
 import { useForm, zodResolver } from '@mantine/form';
 import { appColors } from '../appColors';
 
@@ -44,7 +44,7 @@ const NewsLetter = () => {
     }
   };
   return (
-    <Container size="xl">
+    <>
       <Box
         component="form"
         onSubmit={form.onSubmit(handleSubmit)}
@@ -98,7 +98,7 @@ const NewsLetter = () => {
           </Button>
         </Flex>
       </Box>
-    </Container>
+    </>
   );
 };
 

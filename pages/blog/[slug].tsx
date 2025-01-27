@@ -4,6 +4,7 @@ import styled from '@emotion/styled';
 import moment from 'moment';
 import {
   Box,
+  Button,
   Container,
   Divider,
   Flex,
@@ -30,24 +31,6 @@ const ImageWrapper = styled.div`
   position: relative;
   border-radius: 16px 16px 0 0;
   overflow: hidden;
-`;
-const ButtonStyled = styled.button`
-  background: ${appColors.white};
-  border: '1px solid #571244';
-  border: 'none';
-  font-weight: 600;
-  font-size: '14px';
-  color: ${appColors?.activeColor};
-  margin-top: 40px;
-  outline: none;
-  cursor: pointer;
-  z-index: 4;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 153px;
-  height: 3rem;
-  border-radius: 4px;
 `;
 
 const GradientOverlay = styled.div`
@@ -193,7 +176,22 @@ const BlogDetailPage = () => {
           </Grid.Col>
         ))}
         <Flex mt={50} justify="center" w="100%">
-          <ButtonStyled onClick={() => router.push('/')}>Explore More</ButtonStyled>
+          <Button
+            onClick={() => router.push('/')}
+            sx={{
+              cursor: 'pointer',
+              position: 'relative',
+              zIndex: 2,
+              '&.mantine-Button-root': {
+                background: appColors?.white,
+                color: appColors?.activeColor,
+                border: '1px solid #571244',
+              },
+            }}
+            w={156}
+          >
+            Explore More
+          </Button>
         </Flex>
       </Grid>
     );

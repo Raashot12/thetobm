@@ -169,6 +169,10 @@ const FooterSection = () => (
         justify="space-between"
         fw={300}
         fz={{ base: 14, sm: 16 }}
+        flex="wrap"
+        gap={20}
+        direction={{ base: 'column-reverse', md: 'row' }}
+        align={{ base: 'center', md: '' }}
       >
         <Text>Copyright ⓒ Tobams Group, 2024. All rights reserved.</Text>
         <Group>
