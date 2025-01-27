@@ -1,0 +1,8 @@
+body {
+  overflow-x: hidden;
+  background-color: white !important;
+}
+
+.swal2-confirm {
+  background: #380020 !important;
+}
