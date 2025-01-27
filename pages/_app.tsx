@@ -58,7 +58,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           defaultColorScheme="light"
         >
           <Head>
-            <title>Homiverse</title>
+            <title>TOBAMS GROUP</title>
             <meta
               name="viewport"
               content="minimum-scale=1, initial-scale=1, width=device-width, user-scalable=no"
