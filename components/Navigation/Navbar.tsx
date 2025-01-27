@@ -5,35 +5,12 @@ import styled from '@emotion/styled';
 import { IconX } from '@tabler/icons-react';
 import { Anchor, Box, Button, Container, Drawer, Flex, Group, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { navMenu } from '@/constants';
 import { appColors } from '../appColors';
 import IconArrowDown from '../Icons/IconArrowDown';
 import IconMenu from '../Icons/IconMenu';
 import IconProfile from '../Icons/IconProfile';
 import Logo from '../Icons/Logo';
-import { navMenu } from '@/constants';
-
-const ButtonStyled = styled.button`
-  background: ${appColors.textColor};
-  font-weight: 500;
-  font-size: 16;
-  color: ${appColors?.white};
-  margin-top: 40px;
-  outline: none;
-  cursor: pointer;
-  z-index: 4;
-  border-top: none;
-  border-left: none;
-  border-right: none;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 153px;
-  @media (max-width: 36em) {
-    width: 100%;
-  }
-  height: 3rem;
-  border-radius: 50px;
-`;
 
 interface StyledLinkProps {
   nothomePage?: boolean;
@@ -64,7 +41,7 @@ const MobileLink = styled(Link)`
     text-decoration: underline;
   }
 `;
-const Navbar = ({ notHomePage }: { notHomePage?: boolean; type?: string }) => {
+const Navbar = () => {
   const { push, pathname } = useRouter();
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] = useDisclosure(false);
 
@@ -203,23 +180,59 @@ const Navbar = ({ notHomePage }: { notHomePage?: boolean; type?: string }) => {
                 </Group>
               </React.Fragment>
             ))}
-            <Anchor
-              target="_blank"
-              sx={{
-                display: 'inline-block',
-                color: '#380020',
-                textDecoration: 'none',
-                ':hover': {
+            <Group gap={24} grow>
+              <Anchor
+                target="_blank"
+                sx={{
+                  color: 'white',
+                  display: 'inline-block',
                   textDecoration: 'none',
-                },
-                width: '153px',
-                '@media (max-width: 36em)': {
-                  width: '100%',
-                },
-              }}
-            >
-              <ButtonStyled>Download App</ButtonStyled>
-            </Anchor>
+                  ':hover': {
+                    textDecoration: 'none',
+                  },
+                }}
+              >
+                <Button
+                  fullWidth
+                  sx={{
+                    cursor: 'pointer',
+                    position: 'relative',
+                    zIndex: 2,
+                  }}
+                  px={16}
+                  leftSection={<IconProfile />}
+                  rightSection={<IconArrowDown />}
+                >
+                  Account
+                </Button>
+              </Anchor>
+              <Anchor
+                target="_blank"
+                sx={{
+                  color: 'white',
+                  display: 'inline-block',
+                  textDecoration: 'none',
+                  ':hover': {
+                    textDecoration: 'none',
+                  },
+                }}
+              >
+                <Button
+                  fullWidth
+                  sx={{
+                    cursor: 'pointer',
+                    position: 'relative',
+                    zIndex: 2,
+                    '&.mantine-Button-root': {
+                      background: appColors?.secondaryColor,
+                    },
+                  }}
+                  px={16}
+                >
+                  Task Assessment
+                </Button>
+              </Anchor>
+            </Group>
           </Stack>
         </Drawer>
       </Box>
@@ -230,7 +243,6 @@ const Navbar = ({ notHomePage }: { notHomePage?: boolean; type?: string }) => {
               <Group gap={10}>
                 <CustomLink
                   href={value.route}
-                  nothomePage={notHomePage}
                   className={
                     pathname === '/' && value.route === '/'
                       ? 'active'

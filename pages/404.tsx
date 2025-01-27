@@ -9,7 +9,6 @@ import { appColors } from '@/components/appColors';
 import { Layout } from '@/components/Layout';
 import Navbar from '@/components/Navigation/Navbar';
 import AOSInit from '@/components/shared/AOSInit';
-import notfound from '../components/images/not.jpeg';
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -60,7 +59,8 @@ const FOUR404Page = () => {
       <ImageWrapper>
         <Box
           sx={{
-            backgroundImage: `url(${notfound.src})`,
+            backgroundImage:
+              'url(https://www.seekahost.com/wp-content/uploads/2017/11/404-page-not-found.jpg)',
             backgroundSize: 'cover',
             height: '700px',
             backgroundPosition: 'center',
@@ -71,7 +71,7 @@ const FOUR404Page = () => {
           }}
         >
           <Box sx={{ position: 'relative', zIndex: 2, width: '100%', top: 0 }}>
-            <Navbar notHomePage type="about-us" />
+            <Navbar />
           </Box>
           <Container size="xl">
             <Box sx={{ position: 'relative', zIndex: 2 }} mt={{ base: 148 }}>
