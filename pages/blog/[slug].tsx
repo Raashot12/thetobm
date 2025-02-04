@@ -108,73 +108,84 @@ const BlogDetailPage = () => {
 
     return (
       <Grid mt={70} gutter={20}>
-        {blogList.slice(0, 3).map((blog) => (
-          <Grid.Col
-            span={{ base: 12, sm: 6, lg: 4 }}
-            key={blog.id}
-            sx={{ cursor: 'pointer', zIndex: 2 }}
-            data-aos="fade-right"
-            data-aos-duration="2000"
-            onClick={() => (isLoadingList ? null : router.push(`/blog/${blog.id}`))}
-          >
-            <Skeleton visible={isLoadingList}>
-              <ImageWrapper>
-                <Image
-                  src={blog.cover_image || 'https://via.placeholder.com/300?text=No+Image'}
-                  alt={blog.title}
-                  height={300}
-                  loading="lazy"
-                  style={{ objectFit: 'cover', width: '100%' }}
-                />
-                <GradientOverlay />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 12,
-                    left: 12,
-                    background: 'rgba(128, 129, 135, 0.3)',
-                    backdropFilter: 'blur(11px)',
-                    borderRadius: 3,
-                    padding: '6px 8px',
-                    zIndex: 2,
-                    color: appColors.deepBrown,
-                    fontWeight: 600,
-                    fontSize: 16,
-                  }}
-                >
-                  {blog.tag_list}
-                </Box>
-              </ImageWrapper>
-            </Skeleton>
+        {blogList
+          ?.filter((value) => value?.id !== Number(slug))
+          ?.slice(0, 3)
+          ?.map((blog) => (
+            <Grid.Col
+              span={{ base: 12, sm: 6, lg: 4 }}
+              key={blog.id}
+              sx={{ cursor: 'pointer', zIndex: 2 }}
+              data-aos="fade-right"
+              data-aos-duration="2000"
+            >
+              <Skeleton visible={isLoadingList}>
+                <ImageWrapper>
+                  <Image
+                    src={blog.cover_image || 'https://via.placeholder.com/300?text=No+Image'}
+                    alt={blog.title}
+                    height={300}
+                    loading="lazy"
+                    style={{ objectFit: 'cover', width: '100%' }}
+                  />
+                  <GradientOverlay />
+                  <Text
+                    sx={{
+                      position: 'absolute',
+                      top: 12,
+                      left: 12,
+                      background: 'rgba(128, 129, 135, 0.3)',
+                      backdropFilter: 'blur(11px)',
+                      borderRadius: 3,
+                      padding: '6px 8px',
+                      zIndex: 2,
+                      color: appColors?.deepBrown,
+                      fontWeight: 600,
+                      fontSize: 16,
+                      textAlign: 'center',
+                      width: 150,
+                    }}
+                    truncate="end"
+                  >
+                    {blog.tag_list}
+                  </Text>
+                </ImageWrapper>
+              </Skeleton>
 
-            <Flex direction="column" mt={30}>
-              <Text fw={600} fz={{ base: 16, md: 20 }} mb={16} lineClamp={1}>
-                {blog.title}
-              </Text>
-              <Text c="#666" lineClamp={2}>
-                {blog.description}
-              </Text>
-            </Flex>
-
-            <Flex align="center" mt={16} justify="space-between">
-              <Group c="#666" fw={400}>
-                <Text>{moment(blog.published_at).format('Do MMMM, YYYY')}</Text>
-                <Divider
-                  orientation="vertical"
-                  display={{ base: 'none', sm: 'block' }}
-                  c="#666"
-                  size={2}
-                />
-                <Text display={{ base: 'none', sm: 'block' }}>
-                  {blog.reading_time_minutes} {blog.reading_time_minutes > 1 ? 'mins' : 'min'}
+              <Flex direction="column" mt={30}>
+                <Text fw={600} fz={{ base: 16, md: 20 }} mb={16} lineClamp={1}>
+                  {blog.title}
                 </Text>
-              </Group>
-              <Text sx={{ textDecoration: 'underline', zIndex: 2 }} c="#571244" fw={400}>
-                View Post
-              </Text>
-            </Flex>
-          </Grid.Col>
-        ))}
+                <Text c="#666" lineClamp={2}>
+                  {blog.description}
+                </Text>
+              </Flex>
+
+              <Flex align="center" mt={16} justify="space-between">
+                <Group c="#666" fw={400}>
+                  <Text>{moment(blog.published_at).format('Do MMMM, YYYY')}</Text>
+                  <Divider
+                    orientation="vertical"
+                    display={{ base: 'none', sm: 'block' }}
+                    c="#666"
+                    size={2}
+                  />
+                  <Text display={{ base: 'none', sm: 'block' }}>
+                    {blog.reading_time_minutes} {blog.reading_time_minutes > 1 ? 'mins' : 'min'}{' '}
+                    read
+                  </Text>
+                </Group>
+                <Text
+                  sx={{ textDecoration: 'underline', zIndex: 2 }}
+                  c="#571244"
+                  fw={400}
+                  onClick={() => (isLoadingList ? null : router.push(`/blog/${blog.id}`))}
+                >
+                  View Post
+                </Text>
+              </Flex>
+            </Grid.Col>
+          ))}
         <Flex mt={50} justify="center" w="100%">
           <Button
             onClick={() => router.push('/')}

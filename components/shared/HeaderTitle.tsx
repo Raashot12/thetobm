@@ -6,9 +6,9 @@ type HeadTitleProps = {
 };
 
 const HeadTitle = ({ title }: HeadTitleProps) => (
-    <Head>
-      <title>{`Homiverse - ${title}`}</title>
-    </Head>
-  );
+  <Head>
+    <title>{`TOBAMS GROUP - ${title}`}</title>
+  </Head>
+);
 
 export default HeadTitle;

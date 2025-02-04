@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import styled from '@emotion/styled';
+import moment from 'moment';
 import {
   Box,
   Button,
@@ -23,6 +24,7 @@ import InputArrow from '../Icons/InputArrow';
 import AOSInit from '../shared/AOSInit';
 import EmptyState from '../shared/EmptyState';
 import { Article, useApiServicesAppBlogSearchApiQuery } from '../state/blog';
+import { articles } from '../util';
 
 const ImageWrapper = styled.div`
   position: relative;
@@ -119,11 +121,113 @@ const StayUpdated = () => {
     }
 
     setBlogDataList(filteredData);
-    setVisibleImages(filteredData.slice(0, 6)); // Reset the visible items to the initial 6 for the filtered data
+    setVisibleImages(filteredData.slice(0, 6));
     setShowMore(false);
   };
 
   const renderContent = useMemo(() => {
+    if (isDataLoading) {
+      return (
+        <Grid mt={70} gutter={20}>
+          {articles.map(
+            ({
+              title,
+              tag_list,
+              readable_publish_date,
+              reading_time_minutes,
+              description,
+              cover_image,
+              id,
+            }) => (
+              <Grid.Col
+                span={{ base: 12, sm: 6, lg: 4 }}
+                key={id}
+                sx={{ cursor: 'pointer', zIndex: 2 }}
+                pos="relative"
+              >
+                <Skeleton visible={isDataLoading}>
+                  <ImageWrapper>
+                    <Image
+                      src={cover_image}
+                      alt={title}
+                      height={300}
+                      loading="lazy"
+                      style={{
+                        borderTopLeftRadius: '16px',
+                        borderTopRightRadius: '16px',
+                        objectFit: 'cover',
+                        width: '100%',
+                        position: 'relative',
+                      }}
+                    />
+                    <GradientOverlay />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 12,
+                        left: 12,
+                        background: 'rgba(128, 129, 135, 0.3)',
+                        backdropFilter: 'blur(11px)',
+                        borderRadius: 3,
+                        padding: '6px 8px',
+                        zIndex: 2,
+                        color: appColors?.deepBrown,
+                        fontWeight: 600,
+                        fontSize: 16,
+                      }}
+                    >
+                      {tag_list}
+                    </Box>
+                  </ImageWrapper>
+                </Skeleton>
+
+                <Flex direction="column" align="flex-start" mt={30}>
+                  <Skeleton visible={isDataLoading} mb={5}>
+                    <Text
+                      fw={600}
+                      fz={{ base: 16, md: 20 }}
+                      mb={16}
+                      sx={{ color: appColors?.blackPrimary }}
+                      lineClamp={1}
+                    >
+                      {title}
+                    </Text>
+                  </Skeleton>
+                  <Skeleton visible={isDataLoading} mb={5}>
+                    <Text ta="left" lineClamp={2} c={appColors?.placeholderColor}>
+                      {description}
+                    </Text>
+                  </Skeleton>
+                </Flex>
+                <Skeleton visible={isDataLoading}>
+                  <Flex align="center" mt={16} justify="space-between">
+                    <Group c={appColors?.placeholderColor} fw={400}>
+                      <Text ta="left">{readable_publish_date}</Text>
+
+                      <Divider
+                        orientation="vertical"
+                        display={{ base: 'none', sm: 'block' }}
+                        c={appColors?.placeholderColor}
+                        size={2}
+                      />
+
+                      <Text ta="left" display={{ base: 'none', sm: 'block' }}>
+                        {reading_time_minutes}
+                        {reading_time_minutes > 1 ? 'mins' : 'min'}
+                      </Text>
+                    </Group>
+
+                    <Text sx={{ textDecoration: 'underline', zIndex: 2 }} c="#571244" fw={400}>
+                      View Post
+                    </Text>
+                  </Flex>
+                </Skeleton>
+              </Grid.Col>
+            )
+          )}
+        </Grid>
+      );
+    }
     if (isError) {
       return (
         <EmptyState
@@ -133,7 +237,7 @@ const StayUpdated = () => {
         />
       );
     }
-    if (filteredBlogs.length === 0) {
+    if (filteredBlogs.length === 0 && !isFetching) {
       return (
         <EmptyState
           emptyStateMessage="No blog found for your query"
@@ -148,12 +252,12 @@ const StayUpdated = () => {
     }
 
     return (
-      <Grid mt={70} gutter={20}>
+      <Grid mt={70} gutter={30}>
         {filteredBlogs.map(
           ({
             title,
             tag_list,
-            readable_publish_date,
+            published_at,
             reading_time_minutes,
             description,
             cover_image,
@@ -165,7 +269,6 @@ const StayUpdated = () => {
               sx={{ cursor: 'pointer', zIndex: 2 }}
               data-aos="fade-right"
               data-aos-duration="2000"
-              onClick={() => (isDataLoading ? null : router.push(`/blog/${id}`))}
               pos="relative"
             >
               <Skeleton visible={isDataLoading}>
@@ -187,7 +290,7 @@ const StayUpdated = () => {
                     }}
                   />
                   <GradientOverlay />
-                  <Box
+                  <Text
                     sx={{
                       position: 'absolute',
                       top: 12,
@@ -200,10 +303,13 @@ const StayUpdated = () => {
                       color: appColors?.deepBrown,
                       fontWeight: 600,
                       fontSize: 16,
+                      textAlign: 'center',
+                      width: 150,
                     }}
+                    truncate="end"
                   >
                     {tag_list}
-                  </Box>
+                  </Text>
                 </ImageWrapper>
               </Skeleton>
 
@@ -228,7 +334,7 @@ const StayUpdated = () => {
               <Skeleton visible={isDataLoading}>
                 <Flex align="center" mt={16} justify="space-between">
                   <Group c={appColors?.placeholderColor} fw={400}>
-                    <Text ta="left">{readable_publish_date}</Text>
+                    <Text ta="left">{moment(published_at).format('Do MMMM, YYYY')}</Text>
 
                     <Divider
                       orientation="vertical"
@@ -239,11 +345,16 @@ const StayUpdated = () => {
 
                     <Text ta="left" display={{ base: 'none', sm: 'block' }}>
                       {reading_time_minutes}
-                      {reading_time_minutes > 1 ? 'mins' : 'min'}
+                      {reading_time_minutes > 1 ? 'mins' : 'min'} read
                     </Text>
                   </Group>
 
-                  <Text sx={{ textDecoration: 'underline', zIndex: 2 }} c="#571244" fw={400}>
+                  <Text
+                    sx={{ textDecoration: 'underline', zIndex: 2 }}
+                    c="#571244"
+                    fw={400}
+                    onClick={() => (isDataLoading ? null : router.push(`/blog/${id}`))}
+                  >
                     View Post
                   </Text>
                 </Flex>
