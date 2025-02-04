@@ -114,7 +114,7 @@ const StayUpdated = () => {
       filterDate.setDate(currentDate.getDate() - selectedDays);
 
       filteredData =
-        blogDataList?.filter((item) => {
+        data?.filter((item) => {
           const itemDate = new Date(item?.published_timestamp || '');
           return itemDate >= filterDate && itemDate <= currentDate;
         }) || [];
