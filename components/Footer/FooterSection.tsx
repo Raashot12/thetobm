@@ -128,10 +128,10 @@ const FooterSection = () => (
           <Text fw={700} fz={{ base: 18, md: 20 }} c={appColors?.white}>
             Contact Information
           </Text>
-          <Box>
+          <Box mt={{ base: 10, sm: 0 }}>
             <Text
               sx={{ visibility: 'hidden' }}
-              display={{ base: 'none', md: 'block' }}
+              display={{ base: 'none', sm: 'block' }}
               fw={400}
               fz={{ base: 16 }}
             >
@@ -166,7 +166,7 @@ const FooterSection = () => (
       <Flex
         mt={{ base: 16, sm: 24 }}
         c={appColors?.white}
-        justify="space-between"
+        justify={{ base: 'center', md: 'space-between' }}
         fw={300}
         fz={{ base: 14, sm: 16 }}
         flex="wrap"
@@ -174,12 +174,14 @@ const FooterSection = () => (
         direction={{ base: 'column-reverse', md: 'row' }}
         align={{ base: 'center', md: '' }}
       >
-        <Text>Copyright ⓒ Tobams Group, 2024. All rights reserved.</Text>
-        <Group>
+        <Text ta={{ base: 'center', md: 'left' }}>
+          Copyright ⓒ Tobams Group, 2024. All rights reserved.
+        </Text>
+        <Flex justify={{ base: 'center', md: 'flex-start' }} wrap="wrap" columnGap={25}>
           <Text td="underline">Terms and Conditions</Text>
           <Text td="underline">Privacy Policy</Text>
           <Text td="underline">Cookies Policy</Text>
-        </Group>
+        </Flex>
       </Flex>
     </Container>
   </Box>

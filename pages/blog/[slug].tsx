@@ -122,7 +122,7 @@ const BlogDetailPage = () => {
               <Skeleton visible={isLoadingList}>
                 <ImageWrapper>
                   <Image
-                    src={blog.cover_image || 'https://via.placeholder.com/300?text=No+Image'}
+                    src={blog.cover_image ?? 'https://via.placeholder.com/300?text=No+Image'}
                     alt={blog.title}
                     height={300}
                     loading="lazy"
@@ -261,11 +261,13 @@ const BlogDetailPage = () => {
           {moment(blogDetailsData?.published_at).format('Do MMMM, YYYY')}
         </Text>
         <Image
-          src={blogDetailsData?.cover_image || 'https://via.placeholder.com/300?text=No+Image'}
+          src={
+            blogDetailsData?.cover_image
+              ? blogDetailsData?.cover_image
+              : 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATUAAACjCAMAAADciXncAAAAPFBMVEX29va2trb5+fmzs7PFxcXQ0NDq6uq4uLjk5OTw8PDBwcG+vr7y8vL19fXg4OC7u7vW1tbR0dHJycna2tpbkRd1AAAEqUlEQVR4nO2d7ZqjIAxGNSh+oNXq/d/r2pmd2VYRNC1K1vf8nXna9DwIGkJMEgAAAAAAAAAAAAAAPgQllZZDNcUbAXQzShLmFoO2QaWyUMPZyhLKpUmbtOVnjzYtT9qkTZ8rTeJQO3+wUXa2AQ4qgzUGsMYB1jjAGgdY4wBrHOKydvYzpoN4rZkyXky01k4OxgXVEQUKa6xgYI0TDKxxgoE1TjCwxgkG1jjBwBonGFjjBANrnGBgjRMMrHGCgTVOMLDGCQbWOMHwrNEXQSObf6N0a5ToW3+/9zfdHmdOtjWicih+s9LD7ahqMtHWqDQvKXzVjUeEKdoaNctiN1VXR/wEudZIF9YKpCOKF8Vao9Km7DHcxvA/Qqw1vSJt0lYG/xVSrbXdqrU0DV68KNSas6pS1aF/hlBr7gJeFXpFkGmNMncBbwdrFipP1XPoBUGkNep91gZY8/yfjaING6hEa03hsxb45IRIa75pLfgqKtEalX5rYR+rJFpLNljrYW0OxtpLMBut+Y/2wdqSxm+tDBuoRGuJSX1UYQOVaI2857zrwIGKtOZbDgIvoTKtJeR5OFBhL1Cp1kZ3fi3ww7tQa+4EeOi1QKw158wWelYTa82VYjugL4lUa+t3H8qEza19fblUa2vNeVTdHBCoXGvWhVTlhwQq11pCup55U134ffevbxZsbaKs/x2nVqob22N+gHBrCVXjYKYnhcJkvT6sWFK6tUe9ZNJMHFhf+j9Y+8gXE7XVd8PDbcXAsEakx9/qXpOXG4p7L2+Nqt48N+iY1pS+8a7e17ZGekiXxb2Fb9fh0taoGpT9AcNo9+Pcda1Rky/H2S/OzfvrWqPSXkP+M9xc6aarWrMdVphpuztyyde0tnZYYeNou6Y1z77Dj7bVue2a1jb2zVZrK+kVrbWeWuh/rJVcXs8aNWZzB+i1LcLLWaOq29E2e2Vqu5y1XdKma9S6C3E1a80+aSut0S9mba+0lZKRa1lr59szG6zZFgTZ1mhnU4r90uxHFwRbo/a7J8V40802dayXwtheXyDWGum8+22VXJi89G7qsd/UsRxsQq2Rzl7ziZO5oXQOOLY0y8wm0po9zfPI+K/3pfCe83NoW9yzSbS2nk9U6aDtW0x0579IZ5kyEmjNmeZRyoyWLab33j5kFh8nzpp31DwaFjUvUxxVnFuOp0+cn/kQZ23LpTYtDVmvm+TvzVx1f0dZalkPpFnbPD9N9yNdnQ1DVnf23bs9zPNswqxtS10/u3tX2PfHzBJGsqxtOE8bhPklKsua/8B7KGaBSrJG7y2FbzBrECLJ2t5J7YPMkpOSrK03DwvP642uIGvnXZ8PqtdQnv8UszW6nSnt9d5DjrX2tPXzwevEJsbaO0mLT2BEWquOlbTkOckmxlpbnczzo6gYa1EBaxxgjQOscYA1DrDGAdY4wBoHWOMAaxxgjUPU1uIlXmtpES9pvNakAGscYI0DrHGANQ6wxgHWOJxtbThbAIfgfWZ91k7dXucS/O1XXrYfE44GtagQP5zK3zAiMlQRuqXxFm2ZkkV2yGtefZDuczn07i5QB3J2FmgfZ9sCAAAAAAAAAAAAiJQ/LJxiswMZp2kAAAAASUVORK5CYII='
+          }
           alt="Blog Cover"
-          height={559}
           my={24}
-          h="auto"
           style={{
             borderRadius: 12,
             objectFit: 'contain',
