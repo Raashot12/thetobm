@@ -244,7 +244,8 @@ const StayUpdated = () => {
           buttonText="Refresh"
           resetFunct={() => {
             if (!isFetching && !isError && data) {
-              setSearchQuery('');
+              setAlltimeFilter('All posts');
+              handleTimeChange('All posts');
             }
           }}
         />
